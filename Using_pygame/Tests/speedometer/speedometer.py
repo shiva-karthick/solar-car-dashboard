@@ -25,6 +25,7 @@ class Speedometer(object):
         self.clock = pygame.time.Clock()
         self.resolution = (1024, 600)
         self.screen = pygame.display.set_mode(self.resolution)
+        self.PI = math.pi
 
     def load_image(self):
         self.speedometer_image = pygame.image.load("speed.png")
@@ -32,11 +33,18 @@ class Speedometer(object):
 
     def draw_arc(self):
         # pygame.draw.arc()
+
+        # Good example arc below ->
+        # pygame.draw.arc(self.screen, Speedometer.YELLOW,
+        #                 (235, 75, 525, 525), math.radians(-42), math.radians(223), 4)
+
         # draw a partial section of an ellipse
         # arc(Surface, color, Rect, start_angle, stop_angle, width=1) -> Rect
-        """Draws an elliptical arc on the Surface. The rect argument is the area that the ellipse will fill. The two angle arguments are the initial and final angle in radians, with the zero on the right. The width argument is the thickness to draw the outer edge. """
+        """Draws an elliptical arc on the Surface. The rect argument is the area that the ellipse will fill. The two angle arguments are the initial and final angle in radians, with the zero on the right. The width argument is the thickness to draw the outer edge.
+
+        TAKE NOTE: <Worth mentioning> the initial angle must be less than the final angle; otherwise it will draw the full elipse."""
         pygame.draw.arc(self.screen, Speedometer.YELLOW,
-                        (235, 75, 525, 550), 5.80, 3.7, 3)
+                        (235, 75, 525, 525), math.radians(-42), math.radians(223), 4)
 
 
 if __name__ == "__main__":
