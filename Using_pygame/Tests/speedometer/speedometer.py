@@ -26,6 +26,7 @@ class Speedometer(object):
         self.resolution = (1024, 600)
         self.screen = pygame.display.set_mode(self.resolution)
         self.PI = math.pi
+        self.a = 200
 
     def load_image(self):
         self.speedometer_image = pygame.image.load("speed.png")
@@ -44,7 +45,9 @@ class Speedometer(object):
 
         TAKE NOTE: <Worth mentioning> the initial angle must be less than the final angle; otherwise it will draw the full elipse."""
         pygame.draw.arc(self.screen, Speedometer.YELLOW,
-                        (235, 75, 525, 525), math.radians(-42), math.radians(223), 4)
+                        (235, 75, 525, 525), math.radians(self.a), math.radians(223), 5)
+        if self.a != -42:
+            self.a -= 1
 
 
 if __name__ == "__main__":
