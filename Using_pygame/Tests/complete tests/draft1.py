@@ -8,7 +8,53 @@ except ImportError as err:
     print(str(err))
 
 
-class Speedometer(object):
+class Initialise(object):
+    # Colour definitions (Red ,Green, Blue)
+    BLACK = (0, 0, 0)
+    WHITE = (255, 255, 255)
+    RED = (255, 0, 0)
+    GREEN = (0, 255, 0)
+    BLUE = (0, 0, 255)
+    YELLOW = (255, 255, 0)
+    CYAN = (0, 255, 255)
+    BROWN = (83, 91, 36)
+    SILVER = (192, 192, 192)
+
+    def __init__(self):
+        # pygame.init()
+        # pygame.display.set_caption("Dashboard")
+        self.clock = pygame.time.Clock()
+        self.resolution = (1024, 600)
+        self.screen = pygame.display.set_mode(self.resolution)
+
+
+class Battery(Initialise):
+    # Colour definitions (Red ,Green, Blue)
+    BLACK = (0, 0, 0)
+    WHITE = (255, 255, 255)
+    RED = (255, 0, 0)
+    GREEN = (0, 255, 0)
+    BLUE = (0, 0, 255)
+    YELLOW = (255, 255, 0)
+    CYAN = (0, 255, 255)
+    BROWN = (83, 91, 36)
+    SILVER = (192, 192, 192)
+
+    def __init__(self):
+        super().__init__()
+        self.x = 145
+
+    def draw_rect(self):
+        pygame.draw.rect(self.screen, Battery.SILVER, (950, 60, 15, 30))
+        pygame.draw.rect(self.screen, Battery.WHITE, (800, 25, 150, 100), 3)
+        # pygame.draw.rect(self.screen, Battery.GREEN, (802, 27, 145, 97))
+        # if self.x != 145:
+        #     pygame.draw.rect(self.screen, Battery.GREEN, (802, 27, self.x, 97))
+        #     self.x += 1
+        pygame.draw.rect(self.screen, Battery.GREEN, (802, 27, self.x, 97))
+
+
+class Speedometer(Initialise):
     # Colour definitions (Red ,Green, Blue)
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
@@ -21,11 +67,7 @@ class Speedometer(object):
     ORANGE = (250, 167, 41)
 
     def __init__(self):
-        pygame.init()
-        pygame.display.set_caption("Dashboard")
-        self.clock = pygame.time.Clock()
-        self.resolution = (1024, 600)
-        self.screen = pygame.display.set_mode(self.resolution)
+        super().__init__()
         self.PI = math.pi
         self.a = 200
 
@@ -51,33 +93,41 @@ class Speedometer(object):
             self.a -= 1
 
 
-class Text(Speedometer):
-    # def text_objects(text, font):
-    #     textSurface = font.render(text, True, RED)
-    #     return textSurface, textSurface.get_rect()
-
-    def message_display(self, text):
-        largeText = pygame.font.Font("freesansbold.ttf", 50)
+class Text(Battery):
+    def message_display(self, text, x_position, y_position):
+        largeText = pygame.font.Font("freesansbold.ttf", 20)
         # The text is inside a rectangle and can be referenced by a rectangle.
-        textSurface = largeText.render(text, True, self.ORANGE)
+        textSurface = largeText.render(text, True, self.CYAN)
 
         # TextSurface, TextRect = text_objects(text, largeText)
         TextRect = textSurface.get_rect()
-        TextRect.center = (500, 340)
+        TextRect.center = (x_position, y_position)
         self.screen.blit(textSurface, TextRect)
 
 
 if __name__ == "__main__":
-    speedometer = Speedometer()
+    pygame.init()
+    pygame.display.set_caption("Dashboard")
+
+    initialise = Initialise()
+    battery = Battery()
     text = Text()
+    speedometer = Speedometer()
+
     while True:
-        # This is your event handling loop and you might have a logic loop.
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+
         speedometer.load_image()
         speedometer.draw_arc()
-        text.message_display(text="{}".format(75))
+        battery.draw_rect()
+
+        text.message_display(text="{} %".format(
+            100), x_position=865, y_position=150)
+        text.message_display(text="{}".format(
+            75), x_position=500, y_position=340)
+
+        initialise.clock.tick(60)
         pygame.display.update()
-        speedometer.clock.tick(60)

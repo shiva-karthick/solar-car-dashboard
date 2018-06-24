@@ -18,6 +18,7 @@ class Temperature(object):
     YELLOW = (255, 255, 0)
     CYAN = (0, 255, 255)
     BROWN = (83, 91, 36)
+    LIGHT_BLUE = (66, 220, 244)
 
     def __init__(self):
         pygame.init()
@@ -53,7 +54,7 @@ class Text(Temperature):
     def message_display(self, text):
         largeText = pygame.font.Font("freesansbold.ttf", 20)
         # The text is inside a rectangle and can be referenced by a rectangle.
-        textSurface = largeText.render(text, True, self.RED)
+        textSurface = largeText.render(text, True, self.LIGHT_BLUE)
 
         # TextSurface, TextRect = text_objects(text, largeText)
         TextRect = textSurface.get_rect()
@@ -71,6 +72,6 @@ if __name__ == "__main__":
                 pygame.quit()
                 quit()
         temperature.draw_arc()
-        text.message_display(text="10* degrees")
+        text.message_display(text="{} degrees".format(10))
         pygame.display.update()
         temperature.clock.tick(60)

@@ -37,14 +37,32 @@ class Battery(object):
             self.x += 1
 
 
-battery = Battery()
+class Text(Battery):
+    # def text_objects(text, font):
+    #     textSurface = font.render(text, True, RED)
+    #     return textSurface, textSurface.get_rect()
 
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            quit()
+    def message_display(self, text):
+        largeText = pygame.font.Font("freesansbold.ttf", 20)
+        # The text is inside a rectangle and can be referenced by a rectangle.
+        textSurface = largeText.render(text, True, self.CYAN)
 
-    battery.draw_rect()
-    pygame.display.update()
-    battery.clock.tick(60)
+        # TextSurface, TextRect = text_objects(text, largeText)
+        TextRect = textSurface.get_rect()
+        TextRect.center = (865, 150)
+        self.screen.blit(textSurface, TextRect)
+
+
+if __name__ == "__main__":
+    battery = Battery()
+    text = Text()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        battery.draw_rect()
+        text.message_display(text="{} %".format(100))
+        pygame.display.update()
+        battery.clock.tick(60)
