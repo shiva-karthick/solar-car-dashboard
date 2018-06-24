@@ -29,7 +29,7 @@ class Battery(object):
         self.x = 0
 
     def draw_rect(self):
-        pygame.draw.rect(self.screen, Battery.SILVER, (950, 50, 15, 30))
+        pygame.draw.rect(self.screen, Battery.SILVER, (950, 60, 15, 30))
         pygame.draw.rect(self.screen, Battery.WHITE, (800, 25, 150, 100), 3)
         # pygame.draw.rect(self.screen, Battery.GREEN, (802, 27, 145, 97))
         if self.x != 145:
