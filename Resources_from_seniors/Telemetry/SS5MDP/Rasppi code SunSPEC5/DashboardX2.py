@@ -100,14 +100,14 @@ def Meter(
     degreesDifference = angle / division
 
     if typeOfMeter == "TEMP":
-        pygame.draw.arc(destination, WHITE, [(posX+10)+thickness, (posY+10)+thickness,
-                                             (diameter-20-thickness*2), (diameter-20)-thickness*2], 7*pi/4, 13*pi/8, 3)
+        pygame.draw.arc(destination, WHITE, [(posX + 10) + thickness, (posY + 10) + thickness,
+                                             (diameter - 20 - thickness * 2), (diameter - 20) - thickness * 2], 7 * pi / 4, 13 * pi / 8, 3)
         pygame.draw.arc(destination, color, [
-                        posX+10, posY+10, diameter-20, diameter-20], 3*pi/2+(-value)*degreesDifference, 7*pi/4, thickness)
+                        posX + 10, posY + 10, diameter - 20, diameter - 20], 3 * pi / 2 + (-value) * degreesDifference, 7 * pi / 4, thickness)
         blocker = destination.subsurface(
-            diameter/2, diameter/2, diameter/2, diameter/2)
+            diameter / 2, diameter / 2, diameter / 2, diameter / 2)
         labelBox = destination.subsurface(
-            diameter/3.4, diameter/3.4, diameter/2.5, diameter/2.5)
+            diameter / 3.4, diameter / 3.4, diameter / 2.5, diameter / 2.5)
         blocker.fill(GREY)
         labelBox.fill(GREY)
         labelValue = Font("Digital-7", 62).render(str(temp), 1, YELLOW)
@@ -116,21 +116,22 @@ def Meter(
         labelValuePos = labelValue.get_rect()
         labelTitlePos = labelTitle.get_rect()
         labelUnitPos = labelUnit.get_rect()
-        labelValuePos.center = ((diameter/2.5)/2, (diameter/2.5)/1.9)
-        labelTitlePos.center = ((diameter/2), (diameter/3.5))
-        labelUnitPos.center = ((diameter/2)/1.8, (diameter/2)/3.5)
+        labelValuePos.center = ((diameter / 2.5) / 2, (diameter / 2.5) / 1.9)
+        labelTitlePos.center = ((diameter / 2), (diameter / 3.5))
+        labelUnitPos.center = ((diameter / 2) / 1.8, (diameter / 2) / 3.5)
         labelBox.blit(labelValue, labelValuePos)
         destination.blit(labelTitle, labelTitlePos)
         blocker.blit(labelUnit, labelUnitPos)
 
     elif typeOfMeter == "BATT":
-        pygame.draw.arc(destination, WHITE, [(posX+10)+thickness, (posY+10)+thickness,
-                                             (diameter-20-thickness*2), (diameter-20)-thickness*2], 11*pi/8, 5*pi/4, 3)
+        pygame.draw.arc(destination, WHITE, [(posX + 10) + thickness, (posY + 10) + thickness,
+                                             (diameter - 20 - thickness * 2), (diameter - 20) - thickness * 2], 11 * pi / 8, 5 * pi / 4, 3)
         pygame.draw.arc(destination, color, [
-                        posX+10, posY+10, diameter-20, diameter-20], 5*pi/4, 3*pi/2+(value)*degreesDifference, thickness)
-        blocker = destination.subsurface(0, diameter/2, diameter/2, diameter/2)
+                        posX + 10, posY + 10, diameter - 20, diameter - 20], 5 * pi / 4, 3 * pi / 2 + (value) * degreesDifference, thickness)
+        blocker = destination.subsurface(
+            0, diameter / 2, diameter / 2, diameter / 2)
         labelBox = destination.subsurface(
-            diameter/3.4, diameter/3.4, diameter/2.5, diameter/2.5)
+            diameter / 3.4, diameter / 3.4, diameter / 2.5, diameter / 2.5)
         blocker.fill(GREY)
         labelBox.fill(GREY)
         labelValue = Font("Digital-7", 62).render(str(temp), 1, GREEN)
@@ -139,20 +140,20 @@ def Meter(
         labelValuePos = labelValue.get_rect()
         labelTitlePos = labelTitle.get_rect()
         labelUnitPos = labelUnit.get_rect()
-        labelValuePos.center = ((diameter/2.5)/2, (diameter/2.5)/1.9)
-        labelTitlePos.center = ((diameter/2), (diameter/3.5))
-        labelUnitPos.center = ((diameter/2)/2.2, (diameter/2)/3.5)
+        labelValuePos.center = ((diameter / 2.5) / 2, (diameter / 2.5) / 1.9)
+        labelTitlePos.center = ((diameter / 2), (diameter / 3.5))
+        labelUnitPos.center = ((diameter / 2) / 2.2, (diameter / 2) / 3.5)
         labelBox.blit(labelValue, labelValuePos)
         destination.blit(labelTitle, labelTitlePos)
         blocker.blit(labelUnit, labelUnitPos)
 
     elif typeOfMeter == "SPEED":
-        pygame.draw.arc(destination, WHITE, [(posX+10)+thickness, (posY+5)+thickness,
-                                             (diameter-20)-thickness*2, ((speedPos[3]*2)-20)-thickness*2], 7*pi/4, 5*pi/4, 3)
+        pygame.draw.arc(destination, WHITE, [(posX + 10) + thickness, (posY + 5) + thickness,
+                                             (diameter - 20) - thickness * 2, ((speedPos[3] * 2) - 20) - thickness * 2], 7 * pi / 4, 5 * pi / 4, 3)
         pygame.draw.arc(destination, color, [
-                        posX+10, posY+5, diameter-20, (speedPos[3]*2)-20], pi+(-value)*degreesDifference, 5*pi/4, thickness)
+                        posX + 10, posY + 5, diameter - 20, (speedPos[3] * 2) - 20], pi + (-value) * degreesDifference, 5 * pi / 4, thickness)
         labelBox = destination.subsurface(
-            (diameter/2)/2, speedPos[3]/3.5, diameter/2, speedPos[3]/1.4)
+            (diameter / 2) / 2, speedPos[3] / 3.5, diameter / 2, speedPos[3] / 1.4)
         labelBox.fill(GREY)
         labelBox.set_alpha(0)
         labelValue = Font("Digital-7", 200).render(str(value), 1, BLUE)
@@ -161,9 +162,9 @@ def Meter(
         labelValuePos = labelValue.get_rect()
         labelTitlePos = labelTitle.get_rect()
         labelUnitPos = labelUnit.get_rect()
-        labelValuePos.center = ((diameter/2)/2, (speedPos[3]/1.4)/2)
-        labelTitlePos.center = ((diameter/2), (speedPos[3]/3.5))
-        labelUnitPos.center = ((diameter/1.35), (speedPos[3]/1.2))
+        labelValuePos.center = ((diameter / 2) / 2, (speedPos[3] / 1.4) / 2)
+        labelTitlePos.center = ((diameter / 2), (speedPos[3] / 3.5))
+        labelUnitPos.center = ((diameter / 1.35), (speedPos[3] / 1.2))
         labelBox.blit(labelValue, labelValuePos)
         destination.blit(labelTitle, labelTitlePos)
         destination.blit(labelUnit, labelUnitPos)
@@ -179,7 +180,7 @@ def Taskbar(
 ):
     if title == "GPS":
         bar = taskbar.subsurface(posX, posY, width, height)
-        label = pygame.draw.rect(bar, WHITE, (0, posY-5, width, height), 5)
+        label = pygame.draw.rect(bar, WHITE, (0, posY - 5, width, height), 5)
         GPS = Font("Digital-7", 24).render("GPS:", 1, WHITE)
         if gps != 1:
             gpsText = Font("Digital-7", 24).render("Disconnected", 1, RED)
@@ -187,27 +188,27 @@ def Taskbar(
             gpsText = Font("Digital-7", 24).render("Connected", 1, GREEN)
         GPSBox = GPS.get_rect()
         gpsBox = gpsText.get_rect()
-        GPSBox.center = (width/2-60, height/2)
-        gpsBox.center = (width/2+20, height/2)
+        GPSBox.center = (width / 2 - 60, height / 2)
+        gpsBox.center = (width / 2 + 20, height / 2)
         bar.blit(GPS, GPSBox)
         bar.blit(gpsText, gpsBox)
 
     elif title == "MOTOR":
         bar = taskbar.subsurface(posX, posY, width, height)
-        label = pygame.draw.rect(bar, WHITE, (0, posY-5, width, height), 5)
+        label = pygame.draw.rect(bar, WHITE, (0, posY - 5, width, height), 5)
         motorBar = pygame.draw.rect(
-            bar, (255, 180-value*3, 0), (3, posY-2, (width-6)*(value/60), height-6))
+            bar, (255, 180 - value * 3, 0), (3, posY - 2, (width - 6) * (value / 60), height - 6))
         motorText = Font("Digital-7", 24).render(str(motor), 1, WHITE)
         motorBox = motorText.get_rect()
-        motorBox.center = (width/2+225, height/2)
+        motorBox.center = (width / 2 + 225, height / 2)
         bar.blit(motorText, motorBox)
 
     elif title == "TIME":
         bar = taskbar.subsurface(posX, posY, width, height)
-        label = pygame.draw.rect(bar, WHITE, (0, posY-5, width, height), 5)
+        label = pygame.draw.rect(bar, WHITE, (0, posY - 5, width, height), 5)
         TIME = Font("Digital-7", 24).render(time.ctime(), 1, WHITE)
         timeBox = TIME.get_rect()
-        timeBox.center = (width/2, height/2)
+        timeBox.center = (width / 2, height / 2)
         bar.blit(TIME, timeBox)
 
 
@@ -243,8 +244,9 @@ while True:
             surface.fill(GREY)
 
         Meter("TEMP", tempMeter, YELLOW, 0, 0,
-              tempPos[2], 3*pi/2, 100, 15, temp)
-        Meter("BATT", batMeter, GREEN, 0, 0, batPos[2], 3*pi/2, 100, 15, batt)
+              tempPos[2], 3 * pi / 2, 100, 15, temp)
+        Meter("BATT", batMeter, GREEN, 0, 0,
+              batPos[2], 3 * pi / 2, 100, 15, batt)
         Meter("SPEED", speedMeter, BLUE, 0, 0, speedPos[2], pi, 100, 25, speed)
 
         Taskbar("GPS", 0, 5, 244, 30)
