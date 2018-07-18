@@ -29,17 +29,18 @@ class Initialise(object):
 
 
 class Camera(Initialise):
-    cameraPos = (0,300,1024,300)
-    cameraBlock = pygame.Surface((1024,300))
-    
+    cameraPos = (0, 300, 1024, 300)
+    cameraBlock = pygame.Surface((1024, 300))
+
     def UseCamera(self):
         camera = picamera.PiCamera()
         camera.preview_fullscreen = False
         camera.preview_window = (0, 300, 1024, 300)
         camera.resolution = (1024, 300)
         camera.start_preview()
-        
-        Initialise.screen.blit(Camera.cameraBlock,(Camera.cameraPos[0],Camera.cameraPos[1]))
+
+        Initialise.screen.blit(
+            Camera.cameraBlock, (Camera.cameraPos[0], Camera.cameraPos[1]))
 
 
 if __name__ == "__main__":
@@ -56,7 +57,6 @@ while True:
                 camera.UseCamera()
             else:
                 camera.stop_preview()
-    
-    
+
     initialise.clock.tick(60)
     pygame.display.update()
