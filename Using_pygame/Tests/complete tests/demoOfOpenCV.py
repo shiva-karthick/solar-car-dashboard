@@ -153,7 +153,7 @@ class Camera(Initialise):
         ret = self.cap.set(4, 240)
         # Removes toolbar and status bar
         # Python: cv2.resizeWindow(winname, width, height) → None
-        cv2.resizeWindow("frame", 720, 500)
+        # cv2.resizeWindow("frame", 720, 500)
         cv2.imshow('my webcam', frame)
         # if cv2.waitKey(1) & 0xFF == ord('q'):
         #     break
@@ -187,10 +187,13 @@ if __name__ == "__main__":
                     # camera.UseCamera()
                     pass
                 elif event.type == pygame.K_q:
+                    # The below line requires to be in a While loop
                     if cv2.waitKey(1) & 0xFF == ord('q'):
                         break
                     camera.stop_preview()
+
         camera.UseCamera()
+
         speedometer.draw_arc()
 
         battery.draw_rect()
