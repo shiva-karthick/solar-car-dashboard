@@ -66,6 +66,7 @@ class Speedometer(Initialise):
     BLUE = (0, 0, 255)
     YELLOW = (255, 255, 0)
     CYAN = (0, 255, 255)
+    
     BROWN = (83, 91, 36)
     ORANGE = (250, 167, 41)
 
@@ -147,7 +148,7 @@ class UpdateValues(Initialise):
 
     def __init__(self):
         self.temperature_value = 135
-        self.temperature_value_original = 0
+        self.temperature_value_original = 30
 
     def temperature(self):
         updateCount = 0
@@ -156,7 +157,7 @@ class UpdateValues(Initialise):
             self.temperature_value_original = float(temperature.decode('utf-8'))
             if updateCount < 3:
                 print("The temperature is %f " % self.temperature_value_original)
-                self.temperature_value = self.temperature_value_original * (9/2)
+                self.temperature_value = float(self.temperature_value_original) * (2/9)
 
 
 if __name__ == "__main__":
@@ -169,6 +170,7 @@ if __name__ == "__main__":
     speedometer.load_image()
 
     temperature = Temperature()
+    
     text = Text()
 
     updatevalues = UpdateValues()
@@ -181,7 +183,8 @@ if __name__ == "__main__":
                 quit()
                 
         initialise.screen.fill(initialise.BLACK)
-        
+
+        speedometer.load_image()
         speedometer.draw_arc()
 
         battery.draw_rect()
