@@ -26,7 +26,7 @@ class Temperature(object):
         self.clock = pygame.time.Clock()
         self.resolution = (1024, 600)
         self.screen = pygame.display.set_mode(self.resolution)
-        self.a = 179
+        self.a = 180
 
     def draw_arc(self):
         # pygame.draw.arc()

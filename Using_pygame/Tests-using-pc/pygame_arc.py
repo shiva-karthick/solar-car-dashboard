@@ -24,7 +24,7 @@ BLACK = (0, 0, 0)
 clock = pygame.time.Clock()
 PI = math.pi
 
-delta = 180
+delta = 223
 
 
 while(dead == False):
@@ -35,8 +35,8 @@ while(dead == False):
     pygame.draw.rect(screen, BLACK, [80, 10, 250, 200], 2)
     # pygame.draw.arc(screen, RED, [80, 10, 250, 200], PI / 2, PI, 2)
     pygame.draw.arc(screen, GREEN, [80, 10, 250, 200], math.radians(
-        delta), math.radians(180), 2)
-    if delta != 0:
+        delta), math.radians(223), 2)
+    if delta != -42:
         delta -= 1
         # pygame.draw.arc(
         #     screen, BLUE, [80, 10, 250, 200], 3 * PI / 2, 2 * PI, 2)

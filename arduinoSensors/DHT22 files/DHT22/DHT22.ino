@@ -49,14 +49,18 @@ void loop() {
   }
 
   // Compute heat index in Fahrenheit (the default)
-  float hif = dht.computeHeatIndex(f, h);
+  // float hif = dht.computeHeatIndex(f, h);
   // Compute heat index in Celsius (isFahreheit = false)
-  float hic = dht.computeHeatIndex(t, h, false);
+  // float hic = dht.computeHeatIndex(t, h, false);
 
   // Serial.print("Humidity: "); Serial.print(h); Serial.print(" %\t");
 
   // Serial.print("Temperature: "); 
-  Serial.println(t); 
+  Serial.print(t);
+  Serial.print(",");
+  Serial.print(100);
+  Serial.print(",");
+  Serial.println(75);
   // Serial.print(" *C ");
   // Serial.print(f); Serial.print(" *F\t");
 

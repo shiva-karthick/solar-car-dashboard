@@ -46,7 +46,7 @@ class Speedometer(object):
 
         TAKE NOTE: <Worth mentioning> the initial angle must be less than the final angle; otherwise it will draw the full elipse."""
         pygame.draw.arc(self.screen, Speedometer.YELLOW,
-                        (235, 75, 525, 525), math.radians(self.a), math.radians(223), 5)
+                        (235, 75, 525, 525), math.radians(-42), math.radians(224), 5)
         if self.a != -42:
             self.a -= 1
 

@@ -66,18 +66,18 @@ class Speedometer(Initialise):
     BLUE = (0, 0, 255)
     YELLOW = (255, 255, 0)
     CYAN = (0, 255, 255)
-    
+
     BROWN = (83, 91, 36)
     ORANGE = (250, 167, 41)
 
-    def __init__(self):
-        self.a = 200
+##    def __init__(self):
+##        self.a = 200
 
     def load_image(self):
         self.speedometer_image = pygame.image.load("speed.png")
         self.screen.blit(self.speedometer_image, (100, 5))
 
-    def draw_arc(self):
+    def draw_arc(self,speed_value):
         # pygame.draw.arc()
 
         # Good example arc below ->
@@ -92,9 +92,9 @@ thickness to draw the outer edge.
 
         TAKE NOTE: <Worth mentioning> the initial angle must be less than the final angle; otherwise it will draw the full elipse."""
         pygame.draw.arc(Initialise.screen, Speedometer.YELLOW,
-                        (235, 75, 525, 525), math.radians(self.a), math.radians(223), 5)
-        if self.a != -42:
-            self.a -= 1
+                        (235, 75, 525, 525), math.radians(speed_value), math.radians(224), 5)
+##        if self.a != -42:
+##            self.a -= 1
 
 
 class Temperature(Initialise):
@@ -150,40 +150,35 @@ class UpdateValues(Initialise):
         self.temperature_value = 135
         self.temperature_value_original = 30
 
-##        self.speed_value = 135
-##        self.speed_value_original = 100
+        self.speed_value = 30.11
+        self.speed_value_original = 25
 ##
 ##        self.battery_value = 135
 ##        self.battery_value_original = 75
 
     def temperature(self):
-        all_values = []
         updateCount = 0
-        if Initialise.ser.in_waiting > 0:
-##            temperature, speed, battery = Initialise.ser.readline()
-            all_values.append(Initialise.ser.readline())
-            
-            try:
-                print(all_values)
-                self.temperature_value_original = float(temperature.decode('utf-8'))
-                speed_value_original = float(speed.decode('utf-8'))
-                battery_value_original = float(battery.decode('utf-8'))
-                
-                if updateCount < 3:
-                    print("The temperature is %f " % self.temperature_value_original)
-                    self.temperature_value = float(self.temperature_value_original) * (2/9)
-                    
-                    print("The speed is %f " % self.speed_value_original)
-                    print("The battery is %f " % self.battery_value_original)
-            except:
-                print("temperature value is a string, cannot be converted to float ")
-                self.temperature_value = 30
+        if updateCount < 3:
+            if Initialise.ser.in_waiting > 0:
+                try:
+                    values = Initialise.ser.readline()
+                    decoded = values.decode("utf-8")
+                    decoded = str(decoded)
+                    split_decoded = decoded.split(",")
 
-    def speed(self):
-        pass
+                    self.temperature_value_original = float(split_decoded[0].rstrip())
+                    self.speed_value_original = float(split_decoded[1].rstrip())
+                    self.battery_value_original = float(split_decoded[2].rstrip())
 
-    def battery(self):
-        pass
+                    self.temperature_value = (-9/2) * self.temperature_value_original + 180
+                    self.speed_value = (-133/110) * self.speed_value_original + 224
+
+
+                    print("Temperature = {}, speed = {}, battery = {}".format(self.temperature_value_original,self.speed_value_original,self.battery_value_original))
+                except:
+                    print("I cannot convert string (Failed to read from DHT sensor) to float")
+        updateCount +=1
+
 
 
 if __name__ == "__main__":
@@ -196,7 +191,7 @@ if __name__ == "__main__":
     speedometer.load_image()
 
     temperature = Temperature()
-    
+
     text = Text()
 
     updatevalues = UpdateValues()
@@ -207,11 +202,11 @@ if __name__ == "__main__":
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-                
+
         initialise.screen.fill(initialise.BLACK)
 
         speedometer.load_image()
-        speedometer.draw_arc()
+        speedometer.draw_arc(updatevalues.speed_value)
 
         battery.draw_rect()
 
@@ -220,13 +215,13 @@ if __name__ == "__main__":
         text.message_display(text="{} %".format(
             100), x_position=865, y_position=150)
         text.message_display(text="{}".format(
-            75), x_position=500, y_position=340)
+            updatevalues.speed_value_original), x_position=500, y_position=340)
 
         text.message_display(text="{} degrees".format(
             updatevalues.temperature_value_original), x_position=150, y_position=150)
 
         updatevalues.temperature()
-        
+
         initialise.clock.tick(60)
         pygame.display.update()
 
