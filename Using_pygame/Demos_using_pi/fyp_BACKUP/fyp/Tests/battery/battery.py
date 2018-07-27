@@ -32,11 +32,8 @@ class Battery(object):
         pygame.draw.rect(self.screen, Battery.SILVER, (950, 60, 15, 30))
         pygame.draw.rect(self.screen, Battery.WHITE, (800, 25, 150, 100), 3)
         # pygame.draw.rect(self.screen, Battery.GREEN, (802, 27, 145, 97))
-        # pygame.draw.rect(screen, color, (x,y,width,height), thickness)
-
-        if self.x != 146:
-            pygame.draw.rect(self.screen, Battery.GREEN, (803, 27, self.x, 96))
-            time.sleep(0.1)
+        if self.x != 145:
+            pygame.draw.rect(self.screen, Battery.GREEN, (802, 27, self.x, 97))
             self.x += 1
 
 
@@ -69,6 +66,3 @@ if __name__ == "__main__":
         text.message_display(text="{} %".format(100))
         pygame.display.update()
         battery.clock.tick(60)
-
-pygame.quit()
-quit()
