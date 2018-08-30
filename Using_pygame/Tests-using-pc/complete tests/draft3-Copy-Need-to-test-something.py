@@ -83,11 +83,17 @@ class Speedometer(Initialise):
 
         # draw a partial section of an ellipse
         # arc(Surface, color, Rect, start_angle, stop_angle, width=1) -> Rect
-        """Draws an elliptical arc on the Surface. The rect argument is the area that the ellipse will fill. The two angle arguments are the initial and final angle in radians, with the zero on the right. The width argument is the thickness to draw the outer edge.
+        """Draws an elliptical arc on the Surface.
+        The rect argument is the area that the ellipse will fill.
+        The two angle arguments are the initial and final angle in radians,
+        with the zero on the right. The width argument is the thickness
+        to draw the outer edge.
 
-        TAKE NOTE: <Worth mentioning> the initial angle must be less than the final angle; otherwise it will draw the full elipse."""
+        TAKE NOTE: <Worth mentioning> the initial angle must be less than the
+        final angle; otherwise it will draw the full elipse."""
         pygame.draw.arc(Initialise.screen, Speedometer.YELLOW,
-                        (235, 75, 525, 525), math.radians(self.a), math.radians(223), 5)
+                        (235, 75, 525, 525), math.radians(self.a),
+                        math.radians(223), 5)
         if self.a != -42:
             self.a -= 1
 
@@ -120,13 +126,16 @@ class Temperature(Initialise):
 
         TAKE NOTE: <Worth mentioning> the initial angle must be less than the final angle; otherwise it will draw the full elipse."""
         pygame.draw.arc(Initialise.screen, Temperature.YELLOW,
-                        (50, 75, 200, 200), math.radians(self.a), math.radians(-180), 25)
+                        (50, 75, 200, 200), math.radians(self.a),
+                        math.radians(-180), 25)
         if self.a != 0:
             self.a -= 1
+
 
 class Camera(Initialise):
     def show_camera(self):
         pass
+
 
 class Text(Initialise):
     def message_display(self, text, x_position, y_position):
