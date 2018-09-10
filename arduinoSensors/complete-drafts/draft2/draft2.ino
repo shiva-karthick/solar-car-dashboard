@@ -111,7 +111,7 @@ void setup() {
   // ===================End of Ultimate GPS shield======================================
 
   // ===================Battery=========================================================
-  
+
   // ===================End of Battery==================================================
 
 }
@@ -235,7 +235,7 @@ float collect_speed() {
       //      Serial.println(GPS.longitudeDegrees, 4);
 
       //      Serial.print("Speed (knots): "); Serial.println(GPS.speed);
-      return GPS.speed;
+      return GPS.speed * 1.852;
       //      Serial.print("Angle: "); Serial.println(GPS.angle);
       //      Serial.print("Altitude: "); Serial.println(GPS.altitude);
       //      Serial.print("Satellites: "); Serial.println((int)GPS.satellites);
