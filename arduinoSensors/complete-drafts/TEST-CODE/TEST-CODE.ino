@@ -1,6 +1,6 @@
 # include "DHT.h"
 
-# define DHTPIN 2     // what digital pin we're connected to
+# define DHTPIN 2   // what digital pin we're connected to
 # define DHTTYPE DHT22
 
 DHT dht(DHTPIN, DHTTYPE);
@@ -29,7 +29,7 @@ void loop() {
   Serial.print(",");
 
   // Simulate the speed from the GPS shield
-  Serial.print(110);
+  Serial.print(100);
   Serial.print(",");
 
   // Simulate the battery level
