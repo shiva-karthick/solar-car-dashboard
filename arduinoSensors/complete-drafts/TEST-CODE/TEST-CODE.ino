@@ -33,6 +33,6 @@ void loop() {
   Serial.print(",");
 
   // Simulate the battery level
-  Serial.println(50);
+  Serial.println(20);
 
 }

@@ -37,18 +37,33 @@ class Initialise(object):
     screen = pygame.display.set_mode(resolution,pygame.RESIZABLE)
     ser = serial.Serial('/dev/ttyACM0', 9600, 8, 'N', 1, timeout=5)
 
+class Text(Initialise):
+    def message_display(self, text, x_position, y_position):
+        largeText = pygame.font.Font("freesansbold.ttf", 20)
+        # The text is inside a rectangle and can be referenced by a rectangle.
+        textSurface = largeText.render(text, True, Initialise.CYAN)
 
-class Battery(Initialise):
+        # TextSurface, TextRect = text_objects(text, largeText)
+        TextRect = textSurface.get_rect()
+        TextRect.center = (x_position, y_position)
+        Initialise.screen.blit(textSurface, TextRect)
+
+class Battery(Text):
 
     def draw_rect(self,battery_value):
         pygame.draw.rect(Initialise.screen, Battery.SILVER, (955, 60, 15, 30))
         pygame.draw.rect(Initialise.screen, Battery.WHITE,
-                         (800, 25, 155, 100), 3)
+                         (800, 25, 155, 120), 3)
 
 ##        pygame.draw.rect(screen, color, (x,y,width,height), thickness)
         # pygame.draw.rect(self.screen, Battery.GREEN, (802, 27, 145, 97))
-
-        pygame.draw.rect(self.screen, Battery.GREEN, (802, 27, battery_value, 97))
+        if (battery_value >=67):
+            pygame.draw.rect(Initialise.screen, Initialise.GREEN, (802, 27, battery_value, 117))
+        elif ((battery_value >= 40) and (battery_value < 67)) :
+            pygame.draw.rect(Initialise.screen, Battery.YELLOW, (802, 27, battery_value, 117))
+        else:
+            pygame.draw.rect(Initialise.screen, Battery.RED, (802, 27, battery_value, 117))
+            Text.message_display(self, text="LOW Voltage", x_position=865, y_position=200)
 ##            self.x += 1
         # pygame.draw.rect(Initialise.screen, Battery.GREEN,
         #                  (802, 27, self.x, 97))
@@ -96,17 +111,6 @@ class Temperature(Initialise):
         than the final angle; otherwise it will draw the full elipse."""
         pygame.draw.arc(Initialise.screen, Initialise.YELLOW,(50, 75,
         200, 200), math.radians(temperature_value), math.radians(180), 25)
-
-class Text(Initialise):
-    def message_display(self, text, x_position, y_position):
-        largeText = pygame.font.Font("freesansbold.ttf", 20)
-        # The text is inside a rectangle and can be referenced by a rectangle.
-        textSurface = largeText.render(text, True, Initialise.CYAN)
-
-        # TextSurface, TextRect = text_objects(text, largeText)
-        TextRect = textSurface.get_rect()
-        TextRect.center = (x_position, y_position)
-        Initialise.screen.blit(textSurface, TextRect)
 
 class Camera(Initialise):
     # The below are declared as class variables
@@ -202,11 +206,11 @@ if __name__ == "__main__":
         speedometer.draw_arc(updatevalues.speed_value)
 
         battery.draw_rect(updatevalues.battery_value_original)
-
+        
         temperature.draw_arc(updatevalues.temperature_value)
 
-        text.message_display(text="{} %".format(
-            updatevalues.battery_value_original), x_position=865, y_position=150)
+        text.message_display(text="{} Volts".format(
+            updatevalues.battery_value_original), x_position=865, y_position=175)
 
         text.message_display(text="{}".format(
             updatevalues.speed_value_original), x_position=500, y_position=200)
