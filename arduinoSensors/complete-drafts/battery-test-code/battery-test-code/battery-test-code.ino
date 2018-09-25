@@ -5,10 +5,15 @@ void setup() {
 
 void loop() {
   // read the input on analog pin 0:
-  float batteryValue = analogRead(A0); // Read OUTPUT = 0 V to 5 V. 
-  float value = (batteryValue/1023) * 5; // 
+  float batteryValue = analogRead(A0); // Read OUTPUT = 0 V to 5 V.
+  float value = (batteryValue / 1023) * 5; //
   float realValue = value * 30;
+
   // print out the value you read:
+  Serial.print(36);
+  Serial.print(",");
+  Serial.print(100);
+  Serial.print(",");
   Serial.println(realValue); // The value is from 0 to 150 / 134
-  delay(1);        // delay in between reads for stability
+  delay(10+++00);        // delay in between reads for stability
 }

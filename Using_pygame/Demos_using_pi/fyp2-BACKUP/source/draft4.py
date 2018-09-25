@@ -51,19 +51,19 @@ class Text(Initialise):
 class Battery(Text):
 
     def draw_rect(self,battery_value):
-        pygame.draw.rect(Initialise.screen, Battery.SILVER, (955, 60, 15, 30))
+        pygame.draw.rect(Initialise.screen, Battery.SILVER, (955, 65, 15, 30))
         pygame.draw.rect(Initialise.screen, Battery.WHITE,
                          (800, 25, 155, 120), 3)
 
 ##        pygame.draw.rect(screen, color, (x,y,width,height), thickness)
         # pygame.draw.rect(self.screen, Battery.GREEN, (802, 27, 145, 97))
-        if (battery_value >=67):
+        if (battery_value >=67 and battery_value < 135):
             pygame.draw.rect(Initialise.screen, Initialise.GREEN, (802, 27, battery_value, 117))
         elif ((battery_value >= 40) and (battery_value < 67)) :
             pygame.draw.rect(Initialise.screen, Battery.YELLOW, (802, 27, battery_value, 117))
-        else:
+        elif (battery_value >= 0 and battery_value < 40):
             pygame.draw.rect(Initialise.screen, Battery.RED, (802, 27, battery_value, 117))
-            Text.message_display(self, text="LOW Voltage", x_position=865, y_position=200)
+            Text.message_display(self, text="LOW Battery !!!", x_position=865, y_position=200)
 ##            self.x += 1
         # pygame.draw.rect(Initialise.screen, Battery.GREEN,
         #                  (802, 27, self.x, 97))
@@ -93,7 +93,7 @@ class Speedometer(Initialise):
         pygame.draw.arc(Initialise.screen, Speedometer.YELLOW,
                         (277, 5, 450, 400), math.radians(speed_value), math.radians(224), 5)
 
-class Temperature(Initialise):
+class Temperature(Text):
 
     def draw_arc(self,temperature_value):
 
@@ -109,8 +109,20 @@ class Temperature(Initialise):
 
         TAKE NOTE: <Worth mentioning> the initial angle must be less
         than the final angle; otherwise it will draw the full elipse."""
-        pygame.draw.arc(Initialise.screen, Initialise.YELLOW,(50, 75,
-        200, 200), math.radians(temperature_value), math.radians(180), 25)
+        if (temperature_value >= 0 and temperature_value < 45):
+            pygame.draw.arc(Initialise.screen, Initialise.RED,(10, 75,250, 250), math.radians(temperature_value), math.radians(180), 25)
+            Text.message_display(self, text="HIGH Temperature !!!", x_position=150, y_position=235)
+
+            self.high_temperature_image = pygame.image.load("temperature.jpg")
+            self.high_temperature_image = pygame.transform.scale(self.high_temperature_image,(50, 50))
+            Initialise.screen.blit(self.high_temperature_image, (115, 125))
+
+        elif (temperature_value >= 45 and temperature_value < 135):
+            pygame.draw.arc(Initialise.screen, Initialise.YELLOW,(10, 75,250, 250), math.radians(temperature_value), math.radians(180), 25)
+        elif(temperature_value >=135):
+            pygame.draw.arc(Initialise.screen, Initialise.GREEN,(10, 75,250, 250), math.radians(temperature_value), math.radians(180), 25)
+            Text.message_display(self, text="LOW Temperature !!!", x_position=150, y_position=250)
+
 
 class Camera(Initialise):
     # The below are declared as class variables
@@ -135,8 +147,8 @@ class Camera(Initialise):
 
 class UpdateValues(Initialise):
     def __init__(self):
-        self.temperature_value = 135
-        self.temperature_value_original = 30
+        self.temperature_value = 4.5
+        self.temperature_value_original = 39
 
         self.speed_value = 30.11
         self.speed_value_original = 25
@@ -158,8 +170,8 @@ class UpdateValues(Initialise):
                 self.speed_value_original = float(split_decoded[1].strip())
                 self.battery_value_original = float(split_decoded[2].strip())
 
-                self.temperature_value = (-9/2) * self.temperature_value_original + 180
-                self.speed_value = (-133/110) * self.speed_value_original + 224
+                self.temperature_value = (-9/2 * self.temperature_value_original) + 180
+                self.speed_value = (-133/110 * self.speed_value_original) + 224
                 self.battery_value = self.battery_value_original
 
                 print("Temperature = {}, speed = {}, battery = {}".format(self.temperature_value_original,self.speed_value_original,self.battery_value_original))
@@ -206,7 +218,7 @@ if __name__ == "__main__":
         speedometer.draw_arc(updatevalues.speed_value)
 
         battery.draw_rect(updatevalues.battery_value_original)
-        
+
         temperature.draw_arc(updatevalues.temperature_value)
 
         text.message_display(text="{} Volts".format(
@@ -216,7 +228,7 @@ if __name__ == "__main__":
             updatevalues.speed_value_original), x_position=500, y_position=200)
 
         text.message_display(text="{} degrees".format(
-            updatevalues.temperature_value_original), x_position=150, y_position=187)
+            updatevalues.temperature_value_original), x_position=150, y_position=200)
 
         updatevalues.transferValues()
 
