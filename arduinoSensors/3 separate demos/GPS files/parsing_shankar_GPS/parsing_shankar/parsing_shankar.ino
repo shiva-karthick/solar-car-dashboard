@@ -116,7 +116,8 @@ void useInterrupt(boolean v) {
 
 uint32_t timer = millis();
 
-void loop() {                     // run over and over again
+void loop() {
+  
   // in case you are not using the interrupt above, you'll
   // need to 'hand query' the GPS, not suggested :(
   if (! usingInterrupt) {
@@ -166,7 +167,7 @@ void loop() {                     // run over and over again
       //      Serial.print(", ");
       //      Serial.println(GPS.longitudeDegrees, 4);
 
-      Serial.print("Speed (knots): "); Serial.println(GPS.speed);
+      Serial.print("Speed (km/h): "); Serial.println(GPS.speed * 1.852);
       //      Serial.print("Angle: "); Serial.println(GPS.angle);
       //      Serial.print("Altitude: "); Serial.println(GPS.altitude);
       //      Serial.print("Satellites: "); Serial.println((int)GPS.satellites);

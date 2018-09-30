@@ -24,10 +24,10 @@ void loop() {
     speed_value = 0;
   }
 
-  if (battery <= 134.4 - 1) {
+  if (battery <= 150 - 1) {
     battery += 2;
   }
-  else if (battery >= 134.4) {
+  else if (battery >= 150) {
     battery = 0;
   }
 

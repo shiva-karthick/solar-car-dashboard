@@ -53,16 +53,17 @@ class Battery(Text):
     def draw_rect(self,battery_value):
         pygame.draw.rect(Initialise.screen, Battery.SILVER, (955, 65, 15, 30))
         pygame.draw.rect(Initialise.screen, Battery.WHITE,
-                         (800, 25, 155, 120), 3)
+                         (800, 25, 158, 120), 3)
 
 ##        pygame.draw.rect(screen, color, (x,y,width,height), thickness)
         # pygame.draw.rect(self.screen, Battery.GREEN, (802, 27, 145, 97))
-        if (battery_value >=67 and battery_value < 135):
+        if (battery_value >=67 and battery_value < 155):
             pygame.draw.rect(Initialise.screen, Initialise.GREEN, (802, 27, battery_value, 117))
-        elif ((battery_value >= 40) and (battery_value < 67)) :
+        elif ((battery_value >= 83) and (battery_value < 67)) :
             pygame.draw.rect(Initialise.screen, Battery.YELLOW, (802, 27, battery_value, 117))
-        elif (battery_value >= 0 and battery_value < 40):
-            pygame.draw.rect(Initialise.screen, Battery.RED, (802, 27, battery_value, 117))
+        elif (battery_value >= 0 and battery_value < 83):
+            pygame.draw.rect(Initialise.screen, Initialise.RED, (802, 27, battery_value, 117))
+            # pygame.draw.line(Initialise.screen,Initialise.RED,(899,20),(877,145), 4)
             Text.message_display(self, text="LOW Battery !!!", x_position=865, y_position=200)
 ##            self.x += 1
         # pygame.draw.rect(Initialise.screen, Battery.GREEN,
