@@ -29,19 +29,23 @@ class Initialise(object):
 
 
 class Camera(Initialise):
-    cameraPos = (0, 300, 1024, 300)
-    cameraBlock = pygame.Surface((1024, 300))
+    # The below are declared as class variables
+    camera_position = (0, 300, 1024, 300)
+    camera_block = pygame.Surface((1024, 300))
 
-    def UseCamera(self):
-        camera = picamera.PiCamera()
-        camera.preview_fullscreen = False
-        camera.preview_window = (0, 300, 1024, 300)
-        camera.resolution = (1024, 300)
-        camera.start_preview()
+    def __init__(self):
+        self.camera = picamera.PiCamera()
+        self.camera.preview_fullscreen = False
+        self.camera.preview_window = (0, 300, 1024, 300)
+        self.camera.resolution = (1024, 300)
 
+    def use_camera(self):
+        self.camera.start_preview()
         Initialise.screen.blit(
-            Camera.cameraBlock, (Camera.cameraPos[0], Camera.cameraPos[1]))
+            Camera.camera_block, (Camera.camera_position[0], Camera.camera_position[1]))
 
+    def  stop_camera(self):
+        self.camera.stop_preview()
 
 if __name__ == "__main__":
     initialise = Initialise()
@@ -54,9 +58,9 @@ while True:
             quit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_c:
-                camera.UseCamera()
-            else:
-                camera.stop_preview()
+                camera.use_camera()
+            elif event.key == pygame.K_v:
+                camera.stop_camera()
 
     initialise.clock.tick(60)
     pygame.display.update()

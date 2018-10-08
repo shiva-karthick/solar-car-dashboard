@@ -1,28 +1,16 @@
-#include <DHT.h>
-#include <DHT_U.h>
+// Test code for Adafruit GPS modules using MTK3329/MTK3339 driver
+//
+// This code shows how to listen to the GPS module in an interrupt
+// which allows the program to have more 'freedom' - just parse
+// when a new NMEA sentence is available! Then access data when
+// desired.
+//
+// Tested and works great with the Adafruit Ultimate GPS module
+// using MTK33x9 chipset
+//    ------> http://www.adafruit.com/products/746
+// Pick one up today at the Adafruit electronics shop
+// and help support open source hardware & software! -ada
 
-// ==================================DHT Sensor===================================
-#include "DHT.h"
-
-#define DHTPIN 2     // what digital pin we're connected to
-#define DHTTYPE DHT22   // DHT 22  (AM2302), AM2321
-
-// Connect pin 1 (on the left) of the sensor to +5V
-// NOTE: If using a board with 3.3V logic like an Arduino Due connect pin 1
-// to 3.3V instead of 5V!
-// Connect pin 2 of the sensor to whatever your DHTPIN is
-// Connect pin 4 (on the right) of the sensor to GROUND
-// Connect a 10K resistor from pin 2 (data) to pin 1 (power) of the sensor
-
-// Initialize DHT sensor.
-// Note that older versions of this library took an optional third parameter to
-// tweak the timings for faster processors.  This parameter is no longer needed
-// as the current DHT reading algorithm adjusts itself to work on faster procs.
-DHT dht(DHTPIN, DHTTYPE);
-// ================================================================================
-
-
-// ==================================GPS-Speed==================================
 #include <Adafruit_GPS.h>
 #include <SoftwareSerial.h>
 
@@ -51,7 +39,9 @@ SoftwareSerial mySerial(8, 7); // -> Works with this code
 
 //HardwareSerial mySerial = Serial1;
 
+
 Adafruit_GPS GPS(&mySerial);
+
 
 // Set GPSECHO to 'false' to turn off echoing the GPS data to the Serial console
 // Set to 'true' if you want to debug and listen to the raw GPS sentences.
@@ -61,29 +51,17 @@ Adafruit_GPS GPS(&mySerial);
 // off by default!
 boolean usingInterrupt = false;
 void useInterrupt(boolean); // Func prototype keeps Arduino 0023 happy
-// =============================================================================
 
-
-// ==================================Battery==================================
-// ===========================================================================
-
-// lambda declarations
-float collect_temperature();
-float collect_speed();
-float collect_battery();
-
+// -----------My declarations-----------
+float gps_speed(); // function prototype
+float speedometer_value;
+// -----------END of my declarations-----------
 
 void setup() {
-  // ============================DHT 22============================================
-  Serial.begin(9600);
-  dht.begin();
-  // ============================End of DHT 22=====================================
-
-  // ============================Ultimate GPS shield==================================
   // connect at 115200 so we can read the GPS fast enough and echo without dropping chars
   // also spit it out
   // Serial.begin(115200);
-  //  Serial.begin(9600);
+  Serial.begin(9600);
   //  Serial.println("Adafruit GPS library basic test!");
 
   // 9600 NMEA is the default baud rate for Adafruit MTK GPS's- some use 4800
@@ -112,15 +90,8 @@ void setup() {
   delay(1000);
   // Ask for firmware version
   mySerial.println(PMTK_Q_RELEASE);
-  // ===================End of Ultimate GPS shield======================================
-
-  // ===================Battery=========================================================
-
-  // ===================End of Battery==================================================
-
 }
 
-// =====================Interrupt routine for Ultimate GPS Shield======================
 // Interrupt is called once a millisecond, looks for any new GPS data, and stores it
 SIGNAL(TIMER0_COMPA_vect) {
   char c = GPS.read();
@@ -148,43 +119,19 @@ void useInterrupt(boolean v) {
 }
 
 uint32_t timer = millis();
-// =========================End of Interrupt routine for Ultimate GPS Shield==============================
-
 
 void loop() {
-  // float temperature_value = collect_temperature();
-  float speedometer_value = collect_speed();
-  //  float battery_value = collect_battery();
-
+  speedometer_value = gps_speed();
   Serial.print(25);
   Serial.print(",");
   Serial.print(speedometer_value);
   Serial.print(",");
-  Serial.println(100);
-
+  Serial.println(135);
+  delay(500);
 }
 
-float collect_temperature() {
-  // Wait a few seconds between measurements.
-  delay(2000);
 
-  // Reading temperature or humidity takes about 250 milliseconds!
-  // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
-  // Read temperature as Celsius (the default)
-  float t = dht.readTemperature();
-  // Read temperature as Fahrenheit (isFahrenheit = true)
-  // float f = dht.readTemperature(true);
-
-  // Check if any reads failed and exit early (to try again).
-  if (isnan(t)) {
-    Serial.println("Failed to read from DHT sensor!");
-    return;
-  }
-
-  return (t);
-}
-
-float collect_speed() {
+float gps_speed() {
   // in case you are not using the interrupt above, you'll
   // need to 'hand query' the GPS, not suggested :(
   if (! usingInterrupt) {
@@ -233,17 +180,10 @@ float collect_speed() {
       //      Serial.print(GPS.latitudeDegrees, 4);
       //      Serial.print(", ");
       //      Serial.println(GPS.longitudeDegrees, 4);
-
-      //      Serial.print("Speed (knots): "); Serial.println(GPS.speed);
       return (GPS.speed * 1.852);
       //      Serial.print("Angle: "); Serial.println(GPS.angle);
       //      Serial.print("Altitude: "); Serial.println(GPS.altitude);
       //      Serial.print("Satellites: "); Serial.println((int)GPS.satellites);
     }
   }
-}
-
-float collect_battery() {
-
-
 }
