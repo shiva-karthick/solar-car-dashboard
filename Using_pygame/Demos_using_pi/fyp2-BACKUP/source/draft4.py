@@ -50,25 +50,24 @@ class Text(Initialise):
 
 class Battery(Text):
 
-    def draw_rect(self,battery_value):
-        pygame.draw.rect(Initialise.screen, Battery.SILVER, (955, 65, 15, 30))
+    def draw_rect(self, battery_value):
+        pygame.draw.rect(Initialise.screen, Battery.SILVER, (956, 65, 15, 30))
         pygame.draw.rect(Initialise.screen, Battery.WHITE,
                          (800, 25, 158, 120), 3)
 
 ##        pygame.draw.rect(screen, color, (x,y,width,height), thickness)
         # pygame.draw.rect(self.screen, Battery.GREEN, (802, 27, 145, 97))
-        if (battery_value >=67 and battery_value < 155):
+        if (battery_value >70 and battery_value <= 140):
             pygame.draw.rect(Initialise.screen, Initialise.GREEN, (802, 27, battery_value, 117))
-        elif ((battery_value >= 83) and (battery_value < 67)) :
+        elif ((battery_value > 42) and (battery_value <= 70)) :
             pygame.draw.rect(Initialise.screen, Battery.YELLOW, (802, 27, battery_value, 117))
-        elif (battery_value >= 0 and battery_value < 83):
+        elif (battery_value >= 0 and battery_value <= 42):
             pygame.draw.rect(Initialise.screen, Initialise.RED, (802, 27, battery_value, 117))
-            # pygame.draw.line(Initialise.screen,Initialise.RED,(899,20),(877,145), 4)
+            self.bolt_image = pygame.image.load("bolted.png")
+            self.bolt_image = pygame.transform.scale(self.bolt_image, (100, 110))
+            Initialise.screen.blit(self.bolt_image, (830, 33))
             Text.message_display(self, text="LOW Battery !!!", x_position=865, y_position=200)
-##            self.x += 1
-        # pygame.draw.rect(Initialise.screen, Battery.GREEN,
-        #                  (802, 27, self.x, 97))
-
+            
 
 class Speedometer(Initialise):
 
