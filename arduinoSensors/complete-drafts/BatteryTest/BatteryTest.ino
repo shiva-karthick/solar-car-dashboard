@@ -15,5 +15,5 @@ void loop() {
   Serial.print(100);
   Serial.print(",");
   Serial.println(realValue); // The value is from 0 to 150 / 134
-  delay(10+++00);        // delay in between reads for stability
+  delay(10);        // delay in between reads for stability
 }

@@ -171,7 +171,11 @@ class UpdateValues(Initialise):
                 self.temperature_value_original = float(split_decoded[2].strip())
                 self.speed_value_original = float(split_decoded[3].strip())
                 self.battery_value_original = float(split_decoded[4].strip())
-                self.current = float(split_decoded[5].strip())
+                self.current_1 = float(split_decoded[5].strip())
+                self.current_2 = float(split_decoded[6].strip())
+                self.current_3 = float(split_decoded[7].strip())
+                self.current_4 = float(split_decoded[8].strip())
+                self.current_5 = float(split_decoded[9].strip())
                 
 ##                data = split_decoded[0].strip()
 ##                time = split_decoded[1].strip()
