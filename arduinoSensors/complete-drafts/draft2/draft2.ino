@@ -1,9 +1,10 @@
-#include <DHT.h>
-#include <DHT_U.h>
+/*
+  Aim : To gather data
+      : Send data from solar car to the chase vehicle
+*/
 
 // ==================================DHT Sensor===================================
 #include "DHT.h"
-
 #define DHTPIN 2     // what digital pin we're connected to
 #define DHTTYPE DHT22   // DHT 22  (AM2302), AM2321
 
@@ -65,6 +66,7 @@ void useInterrupt(boolean); // Func prototype keeps Arduino 0023 happy
 
 
 // ==================================Battery==================================
+# define batteryPin A0
 // ===========================================================================
 
 // lambda declarations
@@ -74,8 +76,8 @@ float collect_battery();
 
 
 void setup() {
-  // ============================DHT 22============================================
   Serial.begin(9600);
+  // ============================DHT 22============================================
   dht.begin();
   // ============================End of DHT 22=====================================
 
@@ -244,6 +246,10 @@ float collect_speed() {
 }
 
 float collect_battery() {
+  // read the input on analog pin 0:
+  //  float batteryValue = analogRead(batteryPin); // Read OUTPUT = 0 V to 5 V.
+  //  float value = (batteryValue / 1023) * 5; //
+  //  float realValue = value * 30;
 
-
+  return (((analogRead(batteryPin) / 1023) * 5) * 30);
 }
