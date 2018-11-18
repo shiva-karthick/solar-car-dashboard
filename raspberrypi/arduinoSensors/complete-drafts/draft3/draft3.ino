@@ -4,7 +4,7 @@
 
       Changes from draft2:
       + Used hardware serial parsing instead of software serial parsing (Recommended in GPS datasheet)
-      + Supports only Arduino Mega and Leonardo 
+      + Supports only Arduino Mega and Leonardo because cannot use interrupts 
 */
 
 // ==================================DHT Sensor===================================
@@ -158,6 +158,9 @@ void loop() {
   float current_value_5 = collect_current_sensor_5();
 
   Serial.print("DATA");
+  Serial.print(",");
+  Serial.print("TIME");
+  Serial.print(",");
   Serial.print(temperature_value);
   Serial.print(",");
   Serial.print(speedometer_value);
