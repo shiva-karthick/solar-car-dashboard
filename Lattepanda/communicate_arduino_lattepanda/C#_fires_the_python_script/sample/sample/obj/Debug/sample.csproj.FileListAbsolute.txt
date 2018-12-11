@@ -1,0 +1,7 @@
+C:\Users\Asha\Desktop\solar-car-dashboard\Lattepanda\communicate_arduino_lattepanda\C#_fires_the_python_script\sample\sample\bin\Debug\sample.exe.config
+C:\Users\Asha\Desktop\solar-car-dashboard\Lattepanda\communicate_arduino_lattepanda\C#_fires_the_python_script\sample\sample\bin\Debug\sample.exe
+C:\Users\Asha\Desktop\solar-car-dashboard\Lattepanda\communicate_arduino_lattepanda\C#_fires_the_python_script\sample\sample\bin\Debug\sample.pdb
+C:\Users\Asha\Desktop\solar-car-dashboard\Lattepanda\communicate_arduino_lattepanda\C#_fires_the_python_script\sample\sample\obj\Debug\sample.csprojAssemblyReference.cache
+C:\Users\Asha\Desktop\solar-car-dashboard\Lattepanda\communicate_arduino_lattepanda\C#_fires_the_python_script\sample\sample\obj\Debug\sample.csproj.CoreCompileInputs.cache
+C:\Users\Asha\Desktop\solar-car-dashboard\Lattepanda\communicate_arduino_lattepanda\C#_fires_the_python_script\sample\sample\obj\Debug\sample.exe
+C:\Users\Asha\Desktop\solar-car-dashboard\Lattepanda\communicate_arduino_lattepanda\C#_fires_the_python_script\sample\sample\obj\Debug\sample.pdb

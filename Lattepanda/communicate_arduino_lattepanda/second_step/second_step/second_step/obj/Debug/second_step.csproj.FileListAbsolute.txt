@@ -1,0 +1,7 @@
+C:\Users\Asha\Desktop\solar-car-dashboard\Lattepanda\communicate_arduino_lattepanda\second_step\second_step\second_step\bin\Debug\second_step.exe.config
+C:\Users\Asha\Desktop\solar-car-dashboard\Lattepanda\communicate_arduino_lattepanda\second_step\second_step\second_step\bin\Debug\second_step.exe
+C:\Users\Asha\Desktop\solar-car-dashboard\Lattepanda\communicate_arduino_lattepanda\second_step\second_step\second_step\bin\Debug\second_step.pdb
+C:\Users\Asha\Desktop\solar-car-dashboard\Lattepanda\communicate_arduino_lattepanda\second_step\second_step\second_step\obj\Debug\second_step.csprojAssemblyReference.cache
+C:\Users\Asha\Desktop\solar-car-dashboard\Lattepanda\communicate_arduino_lattepanda\second_step\second_step\second_step\obj\Debug\second_step.csproj.CoreCompileInputs.cache
+C:\Users\Asha\Desktop\solar-car-dashboard\Lattepanda\communicate_arduino_lattepanda\second_step\second_step\second_step\obj\Debug\second_step.exe
+C:\Users\Asha\Desktop\solar-car-dashboard\Lattepanda\communicate_arduino_lattepanda\second_step\second_step\second_step\obj\Debug\second_step.pdb
