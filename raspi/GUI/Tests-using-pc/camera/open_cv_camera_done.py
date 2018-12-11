@@ -1,9 +1,13 @@
+# Trying to use Open CV to access camera
+# Successfull embedded camera , Thanks
 try:
     import pygame
     import math
     import time
     import random
     from pygame.locals import *
+    import numpy as np
+    import sys
     import cv2
 except ImportError as ImpErr:
     print("Check your imports !")
@@ -30,16 +34,6 @@ class Initialise(object):
 
 
 class Battery(Initialise):
-    # Colour definitions (Red ,Green, Blue)
-    BLACK = (0, 0, 0)
-    WHITE = (255, 255, 255)
-    RED = (255, 0, 0)
-    GREEN = (0, 255, 0)
-    BLUE = (0, 0, 255)
-    YELLOW = (255, 255, 0)
-    CYAN = (0, 255, 255)
-    BROWN = (83, 91, 36)
-    SILVER = (192, 192, 192)
 
     def __init__(self):
         self.x = 0
@@ -57,16 +51,6 @@ class Battery(Initialise):
 
 
 class Speedometer(Initialise):
-    # Colour definitions (Red ,Green, Blue)
-    BLACK = (0, 0, 0)
-    WHITE = (255, 255, 255)
-    RED = (255, 0, 0)
-    GREEN = (0, 255, 0)
-    BLUE = (0, 0, 255)
-    YELLOW = (255, 255, 0)
-    CYAN = (0, 255, 255)
-    BROWN = (83, 91, 36)
-    ORANGE = (250, 167, 41)
 
     def __init__(self):
         self.a = 200
@@ -80,30 +64,27 @@ class Speedometer(Initialise):
 
         # Good example arc below ->
         # pygame.draw.arc(self.screen, Speedometer.YELLOW,
-        #                 (235, 75, 525, 525), math.radians(-42), math.radians(223), 4)
+        # (235, 75, 525, 525), math.radians(-42), math.radians(223), 4)
 
         # draw a partial section of an ellipse
         # arc(Surface, color, Rect, start_angle, stop_angle, width=1) -> Rect
-        """Draws an elliptical arc on the Surface. The rect argument is the area that the ellipse will fill. The two angle arguments are the initial and final angle in radians, with the zero on the right. The width argument is the thickness to draw the outer edge.
+        """ Draws an elliptical arc on the Surface.
+        The rect argument is the area that the ellipse will fill.
+        The two angle arguments are the initial and final angle in radians,
+        with the zero on the right.
+        The width argument is the thickness to draw the outer edge.
 
-        TAKE NOTE: <Worth mentioning> the initial angle must be less than the final angle; otherwise it will draw the full elipse."""
+        TAKE NOTE: <Worth mentioning>
+        the initial angle must be less than the final angle;
+        otherwise it will draw the full elipse."""
         pygame.draw.arc(Initialise.screen, Speedometer.YELLOW,
-                        (235, 75, 525, 525), math.radians(self.a), math.radians(223), 5)
+                        (235, 75, 525, 525), math.radians(self.a),
+                        math.radians(223), 5)
         if self.a != -42:
             self.a -= 1
 
 
 class Temperature(Initialise):
-    # Colour definitions (Red ,Green, Blue)
-    BLACK = (0, 0, 0)
-    WHITE = (255, 255, 255)
-    RED = (255, 0, 0)
-    GREEN = (0, 255, 0)
-    BLUE = (0, 0, 255)
-    YELLOW = (255, 255, 0)
-    CYAN = (0, 255, 255)
-    BROWN = (83, 91, 36)
-    LIGHT_BLUE = (66, 220, 244)
 
     def __init__(self):
         self.a = 179
@@ -113,15 +94,21 @@ class Temperature(Initialise):
 
         # Good example arc below ->
         # pygame.draw.arc(self.screen, Temperature.YELLOW,
-        #                 (235, 75, 525, 525), math.radians(-42), math.radians(223), 4)
+        # (235, 75, 525, 525), math.radians(-42), math.radians(223), 4)
 
         # draw a partial section of an ellipse
         # arc(Surface, color, Rect, start_angle, stop_angle, width=1) -> Rect
-        """Draws an elliptical arc on the Surface. The rect argument is the area that the ellipse will fill. The two angle arguments are the initial and final angle in radians, with the zero on the right. The width argument is the thickness to draw the outer edge.
+        """ Draws an elliptical arc on the Surface.
+        The rect argument is the area that the ellipse will fill.
+        The two angle arguments are the initial and final angle in radians,
+        with the zero on the right.
+        The width argument is the thickness to draw the outer edge.
 
-        TAKE NOTE: <Worth mentioning> the initial angle must be less than the final angle; otherwise it will draw the full elipse."""
+        TAKE NOTE: <Worth mentioning> the initial angle must be less than the
+        final angle; otherwise it will draw the full ellipse."""
         pygame.draw.arc(Initialise.screen, Temperature.YELLOW,
-                        (50, 75, 200, 200), math.radians(self.a), math.radians(-180), 25)
+                        (50, 75, 200, 200), math.radians(self.a),
+                        math.radians(-180), 25)
         if self.a != 0:
             self.a -= 1
 
@@ -140,23 +127,29 @@ class Text(Initialise):
 
 class Camera(Initialise):
     def __init__(self):
+        # NOTE -> tutorial link :
+        # https://docs.opencv.org/3.0-beta/doc/py_tutorials/
+        # py_gui/py_video_display/py_video_display.html
+
         self.cap = cv2.VideoCapture(0)
-        # Check if camera opened successfully
+
+        # set the width and height
+        self.cap.set(3, 1000)
+        self.cap.set(4, 200)
+
+        # Check if camera is opened successfully
         if (self.cap.isOpened() == False):
             print("Error opening video stream or file")
 
-    def UseCamera(self):
-        # while True:
+    def use_camera(self):
         # Capture frame-by-frame
         ret, frame = self.cap.read()
-        ret = self.cap.set(3, 320)
-        ret = self.cap.set(4, 240)
-        # Removes toolbar and status bar
-        # Python: cv2.resizeWindow(winname, width, height) → None
-        # cv2.resizeWindow("frame", 720, 500)
-        cv2.imshow('my webcam', frame)
-        # if cv2.waitKey(1) & 0xFF == ord('q'):
-        #     break
+        frame = np.rot90(frame)
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        frame = pygame.surfarray.make_surface(frame)
+
+        # blit to the screen and set the (x,y) coordinates
+        self.screen.blit(frame, (0, 350))
 
     def stop_preview(self):
         # When everything done, release the capture
@@ -177,22 +170,30 @@ if __name__ == "__main__":
     text = Text()
 
     camera = Camera()
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_c:
-                    # camera.UseCamera()
+                if event.key == pygame.K_f:
+                    initialise.resolution = (1024, 600)
+                    initialise.screen = pygame.display.set_mode(
+                        initialise.resolution, pygame.FULLSCREEN)
+                elif event.key == pygame.K_g:
+                    initialise.resolution = (1024, 600)
+                    initialise.screen = pygame.display.set_mode(
+                        initialise.resolution, pygame.RESIZABLE)
+                elif event.key == pygame.K_c:
                     pass
                 elif event.type == pygame.K_q:
+                    camera.stop_preview()
                     # The below line requires to be in a While loop
                     if cv2.waitKey(1) & 0xFF == ord('q'):
-                        break
-                    camera.stop_preview()
+                        camera.stop_preview()
 
-        camera.UseCamera()
+        camera.use_camera()
 
         speedometer.draw_arc()
 
@@ -208,5 +209,8 @@ if __name__ == "__main__":
         text.message_display(text="{} degrees".format(
             15), x_position=150, y_position=150)
 
-        initialise.clock.tick(30)
+        initialise.clock.tick(60)
         pygame.display.update()
+
+pygame.quit()
+quit()
