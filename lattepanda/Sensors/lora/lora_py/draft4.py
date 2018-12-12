@@ -11,6 +11,9 @@ try:
     from pygame.locals import *
     import serial
     import time
+    import numpy as np
+    import sys
+    import cv2
 except ImportError as ImpErr:
     print("Check your imports !")
     print(str(ImpErr))
@@ -154,26 +157,36 @@ class Temperature(Text):
                                  x_position=150, y_position=250)
 
 
-# class Camera(Initialise):
-#     # The below are declared as class variables
-#     camera_position = (0, 300, 1024, 300)
-#     camera_block = pygame.Surface((1024, 300))
+class Camera(Initialise):
+    def __init__(self):
+        # NOTE -> tutorial link :
+        # https://docs.opencv.org/3.0-beta/doc/py_tutorials/py_gui
+        # /py_video_display/py_video_display.html
 
-#     def __init__(self):
-#         self.camera = picamera.PiCamera()
-#         self.camera.preview_fullscreen = False
-#         self.camera.preview_window = (0, 350, 1024, 300)
-#         self.camera.resolution = (1024, 300)
+        self.cap = cv2.VideoCapture(0)
 
-#     def use_camera(self):
-#         # If your preview is upside-down, you can rotate it with the following code
-#         # self.camera.rotation = 180
-#         self.camera.start_preview()
-#         Initialise.screen.blit(
-#             Camera.camera_block, (Camera.camera_position[0], Camera.camera_position[1]))
+        # set the width and height
+        self.cap.set(3, 1000)
+        self.cap.set(4, 250)
 
-#     def  stop_camera(self):
-#         self.camera.stop_preview()
+        # Check if camera is opened successfully
+        if (self.cap.isOpened() == False):
+            print("Error opening video stream or file")
+
+    def use_camera(self):
+        # Capture frame-by-frame
+        ret, frame = self.cap.read()
+        frame = np.rot90(frame)
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        frame = pygame.surfarray.make_surface(frame)
+
+        # blit to the screen and set the (x,y) coordinates
+        self.screen.blit(frame, (0, 350))
+
+    def stop_preview(self):
+        # When everything done, release the capture
+        self.cap.release()
+        cv2.destroyAllWindows()
 
 class UpdateValues(Initialise):
     def __init__(self):
@@ -243,7 +256,7 @@ if __name__ == "__main__":
 
     text = Text()
 
-    # camera = Camera()
+    camera = Camera()
 
     updatevalues = UpdateValues()
 
@@ -262,11 +275,12 @@ if __name__ == "__main__":
                     initialise.screen = pygame.display.set_mode(
                         initialise.resolution, pygame.RESIZABLE)
                 elif event.key == pygame.K_c:
-                    # camera.use_camera()
                     pass
                 elif event.key == pygame.K_v:
-                    # camera.stop_camera()
-                    pass
+                    camera.stop_preview()
+                    # The below line requires to be in a While loop
+                    if cv2.waitKey(1) & 0xFF == ord('q'):
+                        camera.stop_preview()            
 
         initialise.screen.fill(initialise.BLACK)
 
@@ -287,6 +301,8 @@ if __name__ == "__main__":
         text.message_display(text="{} degrees".format(
             updatevalues.temperature_value_original), x_position=150,
             y_position=200)
+
+        # camera.use_camera()
 
         updatevalues.transferValues()
 
