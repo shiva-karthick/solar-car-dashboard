@@ -34,6 +34,7 @@ class Initialise(object):
     clock = pygame.time.Clock()
     resolution = (1024, 600)
     screen = pygame.display.set_mode(resolution, pygame.RESIZABLE)
+
     # raspberry pi code
     # ser = serial.Serial('COM5', 9600, 8, 'N', 1, timeout=5)
 
@@ -60,7 +61,7 @@ class Battery(Text):
         pygame.draw.rect(Initialise.screen, Battery.WHITE,
                          (800, 25, 158, 120), 3)
 
-        # pygame.draw.rect(screen, color, (x,y,width,height), thickness)
+        #        pygame.draw.rect(screen, color, (x,y,width,height), thickness)
         # pygame.draw.rect(self.screen, Battery.GREEN, (802, 27, 145, 97))
         if (battery_value > 70 and battery_value <= 140):
             pygame.draw.rect(Initialise.screen, Initialise.GREEN,
@@ -91,7 +92,7 @@ class Speedometer(Initialise):
         # pygame.draw.arc()
         # Good example arc below ->
         # pygame.draw.arc(self.screen, Speedometer.YELLOW,
-        #   (235, 75, 525, 525), math.radians(-42), math.radians(223), 4)
+        #  (235, 75, 525, 525), math.radians(-42), math.radians(223), 4)
 
         # draw a partial section of an ellipse
         # arc(Surface, color, Rect, start_angle, stop_angle, width=1) -> Rect
@@ -102,7 +103,7 @@ class Speedometer(Initialise):
         thickness to draw the outer edge.
 
         TAKE NOTE: <Worth mentioning> the initial angle must be less than the
-        final angle;otherwise it will draw the full ellipse. """
+        final angle; otherwise it will draw the full ellipse. """
         pygame.draw.arc(Initialise.screen, Speedometer.YELLOW,
                         (277, 5, 450, 400), math.radians(speed_value),
                         math.radians(224), 5)
@@ -113,8 +114,8 @@ class Temperature(Text):
     def draw_arc(self, temperature_value):
 
         # Good example arc below ->
-        # pygame.draw.arc(Initialise.screen, Initialise.YELLOW, (50, 75,
-        # 200, 200), math.radians(0), math.radians(180), 4)
+        # pygame.draw.arc(Initialise.screen, Initialise.YELLOW,
+        # (50, 75, 200, 200), math.radians(0), math.radians(180), 4)
 
         # draw a partial section of an ellipse
         # arc(Surface, color, Rect, start_angle, stop_angle, width=1) -> Rect
@@ -125,8 +126,7 @@ class Temperature(Text):
         The width argument is the thickness to draw the outer edge.
 
         TAKE NOTE: <Worth mentioning> the initial angle must be less
-        than the final angle; otherwise it will draw the full ellipse."""
-
+        than the final angle; otherwise it will draw the full ellipse. """
         if (temperature_value >= 0 and temperature_value < 45):
             pygame.draw.arc(Initialise.screen, Initialise.RED,
                             (10, 75, 250, 250),
@@ -226,7 +226,8 @@ class UpdateValues(Initialise):
                     self.battery_value_original))
             except:
                 print(
-                    "I cannot convert string (Failed to read from DHT sensor) to float")
+                    "I cannot convert string (Failed to read from DHT sensor) "
+                    "to float")
 
 
 if __name__ == "__main__":
