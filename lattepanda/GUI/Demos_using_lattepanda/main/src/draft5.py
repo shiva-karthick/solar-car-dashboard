@@ -302,7 +302,7 @@ if __name__ == "__main__":
             updatevalues.temperature_value_original), x_position=150,
             y_position=200)
 
-        # camera.use_camera()
+        camera.use_camera()
 
         updatevalues.transferValues()
 

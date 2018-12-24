@@ -1,11 +1,11 @@
 /*    Lattepanda version
+  Aim : To gather data such as temperature, speed, battery voltage and current.
+      : Send data from solar car to the chase vehicle
+
       1 GPS sensor -> leo_parsing.ino
       1 Temperature Sensor -> DHTtester.ino
       1 Battery Sensor
       5 Current Sensors
-  Aim : To gather data such as temperature, speed, battery voltage and current.
-      : Send data from solar car to the chase vehicle
-
 */
 
 // ==================================DHT Sensor===================================
@@ -101,6 +101,7 @@ float collect_current_sensor_5();
 void setup() {
   Serial.begin(9600);
   Serial1.begin(9600);
+  
   // ============================DHT 22==============================================
   dht.begin();
   // ============================End of DHT 22=======================================
@@ -150,15 +151,16 @@ void setup() {
 
 void loop() {
   delay(500);
+
   //  testing purposes
   //  float temperature_value = 25;
-  float speedometer_value = 100;
-  float battery_value = 75;
-  float current_value_1 = 0.10;
-  float current_value_2 = 0.20;
-  float current_value_3 = 0.30;
-  float current_value_4 = 0.40;
-  float current_value_5 = 0.50;
+  //  float speedometer_value = 100;
+  //  float battery_value = 75;
+  //  float current_value_1 = 0.10;
+  //  float current_value_2 = 0.20;
+  //  float current_value_3 = 0.30;
+  //  float current_value_4 = 0.40;
+  //  float current_value_5 = 0.50;
 
   float temperature_value = collect_temperature();
   //  float speedometer_value = collect_speed();
