@@ -1,7 +1,7 @@
 # Setup
 name: SunSPEC 6 team's blog
 tagline: A blog site created and maintained by FYP Team 2018-2019
-baseurl: ""
+baseurl: "/docs"
 locale: "en"
 
 # Gems
