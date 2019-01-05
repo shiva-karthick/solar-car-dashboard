@@ -4,3 +4,7 @@
 
 /.idea
 /.vs
+/docs/_site
+/docs/.bundle
+/docs/.sass-cache
+/docs/Gemfile.lock
