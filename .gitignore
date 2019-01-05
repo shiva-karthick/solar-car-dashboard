@@ -8,3 +8,6 @@
 /docs/.bundle
 /docs/.sass-cache
 /docs/Gemfile.lock
+/docs/_site
+/docs/node_modules
+/docs/Gemfile*
