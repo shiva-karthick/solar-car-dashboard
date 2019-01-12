@@ -19,6 +19,17 @@ sudo pip install pygame
 - Raspberry pi and Arduino Mega
 - Arduino Tachometer(IR sensor, hall effect sensor and magnet reed switch) and FPGA
 
+Related Links:
+[SunSPEC in Singapore Polytechnic Engineering Show](http://spengineeringshow.sp.edu.sg/2018/CB15EM/)
+
+[SunSPEC 6 FYP Team](https://shankar-shiv.github.io/solar-car-blog/)
+
+[SunSPEC 5 Battery](https://batterysunspec5.wordpress.com/)
+
+[SunSPEC 5 Telemetry blog](http://telemetry-sunspec5.blogspot.com/)
+
+[SunSPEC 4 Telemetry blog](http://sunspec4-telemetry.blogspot.com/)
+
 Copyright 2018 Shankar
 
 Licensed under the Apache License, Version 2.0 (the "License");
