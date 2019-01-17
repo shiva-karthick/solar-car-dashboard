@@ -2,11 +2,11 @@
 
 ## Bill of Materials
 
-|       Name        | Quantity | Cost of 1 item | Total Cost | Product Link | Have you bough this item? |
-| :---------------: | :------: | :------------: | :--------: | :----------: | :-----------------------: |
-|    Hall sensor    |    1     |                |            |              |            yes            |
-| neodymium magnet  |    1     |                |            |              |            yes            |
-| IR Sensor Modules |    1     |                |            |              |            yes            |
+|       Name        | Quantity | Cost of 1 item | Total Cost | Product Link | Have you bought this item? |
+| :---------------: | :------: | :------------: | :--------: | :----------: | :------------------------: |
+|    Hall sensor    |    1     |                |            |              |            yes             |
+| neodymium magnet  |    1     |                |            |              |            yes             |
+| IR Sensor Modules |    1     |                |            |              |            yes             |
 
 ---
 
